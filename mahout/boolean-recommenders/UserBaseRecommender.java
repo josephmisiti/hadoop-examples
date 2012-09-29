@@ -8,7 +8,7 @@ import org.apache.mahout.cf.taste.impl.neighborhood.*;
 import org.apache.mahout.cf.taste.impl.recommender.*;
 import org.apache.mahout.cf.taste.impl.similarity.*;
 import org.apache.mahout.cf.taste.model.DataModel;
-import org.apache.mahout.cf.taste.neighborhood.UserNeighborhood;
+import org.apache.mahout.cf.taste.neighborhood.*;
 import org.apache.mahout.cf.taste.recommender.*;
 import org.apache.mahout.cf.taste.similarity.*;
 import org.apache.mahout.cf.taste.impl.model.file.FileDataModel;
@@ -24,9 +24,9 @@ import org.apache.mahout.cf.taste.impl.common.LongPrimitiveIterator;
 	* </p>
 */
 
-class ItemBaseRecommender {
+class UserBaseRecommender {
 
-	private ItemBaseRecommender() {}
+	private UserBaseRecommender() {}
 
 	public static final int NUM_OF_RECOMMENDATIONS_RETURNED = 10;
   	public static boolean USE_LOG_LIKELIHOOD = true;
@@ -44,20 +44,18 @@ class ItemBaseRecommender {
 			INPUT_FILE = args[0];
 		}
 	
-		ItemSimilarity similarity;
+		UserSimilarity similarity;
 		DataModel model = new FileDataModel(new File(INPUT_FILE));
 		
-
-	
-	
+		
 		if( USE_LOG_LIKELIHOOD ){
 			similarity =  new LogLikelihoodSimilarity(model);
 		}
 		else {
 			similarity =  new TanimotoCoefficientSimilarity(model);
 		}
-
-		Recommender recommender = new GenericBooleanPrefItemBasedRecommender(model, similarity);
+		UserNeighborhood neighborhood = new NearestNUserNeighborhood(2, similarity, model);
+		UserBasedRecommender recommender = new GenericUserBasedRecommender(model, neighborhood, similarity);
 		
 		int counter = 0;
 		LongPrimitiveIterator users = model.getUserIDs();
