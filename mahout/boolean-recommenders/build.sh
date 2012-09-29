@@ -15,14 +15,14 @@ fi
 
 if [ "$1" == "REC" ]; then
 	echo "Building Item-Based Recommender ... "
-  	javac -d bin -cp $MAHOUT_PATH/integration/target/dependency/*:$MAHOUT_PATH/math/target/mahout-math-0.8-SNAPSHOT.jar:$MAHOUT_PATH/core/target/mahout-core-0.8-SNAPSHOT.jar ItemBaseRecommender.java
+  	javac -d bin -cp $MAHOUT_LIBS ItemBaseRecommender.java
   	echo "Complication Complete ...."
 	exit
 fi
 
 if [ "$1" == "REC-USER" ]; then
 	echo "Building User-Based Recommender ... "
-  	javac -d bin -cp $MAHOUT_PATH/integration/target/dependency/*:$MAHOUT_PATH/math/target/mahout-math-0.8-SNAPSHOT.jar:$MAHOUT_PATH/core/target/mahout-core-0.8-SNAPSHOT.jar UserBaseRecommender.java
+  	javac -d bin -cp $MAHOUT_LIBS UserBaseRecommender.java
   	echo "Complication Complete ...."
 	exit
 fi
@@ -32,7 +32,7 @@ fi
 
 if [ "$1" == "EVAL" ]; then
 	echo "Building Evaluator ... "
-  	javac -d bin -cp $MAHOUT_PATH/integration/target/dependency/*:$MAHOUT_PATH/math/target/mahout-math-0.8-SNAPSHOT.jar:$MAHOUT_PATH/core/target/mahout-core-0.8-SNAPSHOT.jar ItemBaseRecommenderEvaluation.java
+  	javac -d bin -cp $MAHOUT_LIBS ItemBaseRecommenderEvaluation.java
   	echo "Complication Complete ...."
 	exit
 fi
