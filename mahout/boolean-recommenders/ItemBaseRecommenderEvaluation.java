@@ -17,13 +17,16 @@ import java.util.*;
 import org.apache.mahout.common.RandomUtils;
 
 
-// Generic Item based recommender 
+/**
+	* <p>
+	*  This code evaluates a boolean collaborative filtering algorithm. 
+	* </p>
+*/
 
 
 class ItemBaseRecommenderEvaluation {
 
-	private ItemBaseRecommenderEvaluation() {
-	}
+	private ItemBaseRecommenderEvaluation() {}
 	
 	public static void main(String[] args) throws Exception {
 
@@ -37,18 +40,19 @@ class ItemBaseRecommenderEvaluation {
 	};
 
     RecommenderIRStatsEvaluator evaluator = new GenericRecommenderIRStatsEvaluator();
-    IRStatistics stats = evaluator.evaluate(builder, null, model, null, 1, GenericRecommenderIRStatsEvaluator.CHOOSE_THRESHOLD, 1);
+    IRStatistics stats = evaluator.evaluate(builder, 
+											null, 
+											model, 
+											null, 
+											1, 
+											GenericRecommenderIRStatsEvaluator.CHOOSE_THRESHOLD, 
+											1);
 
 	// on average, about P % of recommendations are good
-	System.out.println("PRECISION: On Avarege, about " + stats.getPrecision()*100.0 + " of recommendations are good" );
+	System.out.println("PRECISION: On Avarege, about " + stats.getPrecision()*100.0 + "% of recommendations are good" );
 	
 	// %R of good recommenations are amont those recommended
-	System.out.println("RECALL: " + stats.getRecall()*100.0 + " of good recommenations are among those recommended");
-
-	// for(int iteration=0; iteration<10; iteration++) {
-	//     	double score = evaluator.evaluate(recommenderBuilder, null, model, 0.80, 1.0);
-	//     	System.out.println("Score ---> " + score );	
-	// }
+	System.out.println("RECALL: " + stats.getRecall()*100.0 + "% of good recommenations are among those recommended");
 
 	}
 
