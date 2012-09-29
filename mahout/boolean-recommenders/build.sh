@@ -5,7 +5,7 @@
 
 source ./globals.sh
 
-if [ $# -ne 1 ] || [ "$1" != "REC" ] && [ "$1" != "EVAL" ] && [ "$1" != "REC-USER" ]; then
+if [ $# -ne 1 ] || [ "$1" != "REC" ] && [ "$1" != "EVAL" ] && [ "$1" != "REC-USER" ] && [ "$1" != "EVAL-USER" ]; then
   echo "Usage: $0 <REC or EVAL>\n"
   exit -1
 fi
@@ -33,6 +33,13 @@ fi
 if [ "$1" == "EVAL" ]; then
 	echo "Building Evaluator ... "
   	javac -d bin -cp $MAHOUT_LIBS ItemBaseRecommenderEvaluation.java
+  	echo "Complication Complete ...."
+	exit
+fi
+
+if [ "$1" == "EVAL-USER" ]; then
+	echo "Building Evaluator ... "
+  	javac -d bin -cp $MAHOUT_LIBS UserBaseRecommenderEvaluation.java
   	echo "Complication Complete ...."
 	exit
 fi

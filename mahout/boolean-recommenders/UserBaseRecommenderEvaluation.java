@@ -8,7 +8,7 @@ import org.apache.mahout.cf.taste.impl.neighborhood.*;
 import org.apache.mahout.cf.taste.impl.recommender.*;
 import org.apache.mahout.cf.taste.impl.similarity.*;
 import org.apache.mahout.cf.taste.model.DataModel;
-import org.apache.mahout.cf.taste.neighborhood.UserNeighborhood;
+import org.apache.mahout.cf.taste.neighborhood.*;
 import org.apache.mahout.cf.taste.recommender.Recommender;
 import org.apache.mahout.cf.taste.similarity.UserSimilarity;
 import org.apache.mahout.cf.taste.impl.model.file.FileDataModel;
@@ -24,18 +24,20 @@ import org.apache.mahout.common.RandomUtils;
 */
 
 
-class ItemBaseRecommenderEvaluation {
+class UserBaseRecommenderEvaluation {
 
-	private ItemBaseRecommenderEvaluation() {}
+	private UserBaseRecommenderEvaluation() {}
 	
 	public static void main(String[] args) throws Exception {
 
-	DataModel model = new FileDataModel(new File("ua.base.boolean.csv"));
+	DataModel model = new FileDataModel(new File("ua.base.boolean-large.csv"));
 
 	RecommenderBuilder builder = new RecommenderBuilder() {
 	  @Override
 	  public Recommender buildRecommender(DataModel model) throws TasteException {
-			return new GenericUserBasedRecommender(model, new LogLikelihoodSimilarity(model));
+			UserSimilarity similarity = new LogLikelihoodSimilarity(model);
+			UserNeighborhood neighborhood = new NearestNUserNeighborhood(2, similarity, model);
+			return new GenericUserBasedRecommender(model, neighborhood, similarity);
 	  }
 	};
 

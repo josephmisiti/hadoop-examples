@@ -31,7 +31,7 @@ class UserBaseRecommender {
 	public static final int NUM_OF_RECOMMENDATIONS_RETURNED = 10;
   	public static boolean USE_LOG_LIKELIHOOD = true;
   	public static boolean WRITE_TO_FILE = false;
-  	public static boolean KILL_EARLY = true;
+  	public static boolean KILL_EARLY = false;
 
 
 	public static void main(String[] args) throws Exception 

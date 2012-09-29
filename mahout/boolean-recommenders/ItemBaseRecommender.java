@@ -30,23 +30,29 @@ class ItemBaseRecommender {
 
 	public static final int NUM_OF_RECOMMENDATIONS_RETURNED = 10;
   	public static boolean USE_LOG_LIKELIHOOD = true;
-  	public static boolean WRITE_TO_FILE = false;
+  	public static boolean WRITE_TO_FILE = true;
   	public static boolean KILL_EARLY = true;
 
 
 	public static void main(String[] args) throws Exception 
 	{
 		
-		BufferedWriter out = new BufferedWriter(new FileWriter("recommendations.txt"));
+		
 	
 		String INPUT_FILE = "ua.base.boolean-large.csv";
-		if( args.length > 0){
+		String OUTPUT_FILE = "recommendations.txt";
+		if( args.length < 2){
+			System.out.println("Usage: ./run.sh <INPUT-FILE> <OUTPUT-FILE>");
+			System.exit(0);
+		}
+		else {
 			INPUT_FILE = args[0];
+			OUTPUT_FILE = args[1];
 		}
 	
 		ItemSimilarity similarity;
 		DataModel model = new FileDataModel(new File(INPUT_FILE));
-		
+		BufferedWriter out = new BufferedWriter(new FileWriter(OUTPUT_FILE));
 
 	
 	
