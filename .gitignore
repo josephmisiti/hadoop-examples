@@ -1,4 +1,10 @@
 .DS_Store
+*.pyc
+*.csv
+bin/*
+*.class
+*.dat
 *.swo
 *.swp
+./MISC/*
 *.class
